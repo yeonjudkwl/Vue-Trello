@@ -11,6 +11,11 @@ export default {
       cid: 0
     }
   },
+  watch: {
+    '$route'() {
+      this.cid = this.$route.params.cid
+    }
+  },
   created () {
     this.cid = this.$route.params.cid
   }
