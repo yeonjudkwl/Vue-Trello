@@ -11,9 +11,16 @@ Vue.use(VueRouter)
     component: Home
   },
   {
-    path: '/board/',
+    path: '/board/:id',
     name: 'Board',
-    component: () => import('@/views/Board.vue')
+    component: () => import('@/views/Board.vue'),
+    children: [
+      {
+        path: 'card/:cid',
+        component: () => import('@/views/Card.vue'),
+      }
+    ]
+
   },
   {
     path: '*',

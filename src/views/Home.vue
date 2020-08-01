@@ -1,6 +1,13 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
+    <ul>
+      <li>
+        <router-link to="/board/1">Board 1</router-link>
+      </li>
+      <li>
+        <router-link to="/board/2">Board 2</router-link>
+      </li>
+    </ul>
     
   </div>
 </template>
