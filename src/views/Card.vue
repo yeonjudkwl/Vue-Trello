@@ -16,8 +16,9 @@ export default {
     }
   },
   watch: {
-    '$route'() {
-      this.fetchData()
+    '$route': {
+      handler: 'fetchData',
+      immediate: true //created ()
     }
   },
   methods: {
@@ -28,9 +29,6 @@ export default {
         this.loading = false
       }, 500)
     }
-  },
-  created () {
-    this.fetchData()
   },
 }
 </script>
