@@ -17,15 +17,23 @@ const request = (method, url, data) => {
         .catch( res => {
             const { status } = res.response
             if ( status === UNAUTHORIZED ) {
-                return onUnauthorized()
+                onUnauthorized()
             }
             // 401 외의 error
             throw Error(res)
         })
 }
-
+export const setAuthInHeader = token => {
+    axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : null;
+}
 export const board = {
     fetch () {
         return request('get', '/boards')
+    }
+}
+
+export const auth = {
+    login (email, password) {
+        return request('post', '/login', { email, password })
     }
 }
