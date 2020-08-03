@@ -3,19 +3,28 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
+  const requireAtuth = (to, from, next) => {
+    const isAuth = localStorage.getItem('token')
+    // 로그인 후 이동할 페이지 설정
+    const loginPath = `/login?rPath=${encodeURIComponent(to.path)}`
+    isAuth ? next() : next(loginPath)
+  }
   const routes = [
   {
     path: '/',
     name: 'Home',
+    beforeEnter: requireAtuth,
     component: () => import('@/views/Home.vue'),
   },
   {
     path: '/board/:id',
     name: 'Board',
+    beforeEnter: requireAtuth,
     component: () => import('@/views/boards/Board.vue'),
     children: [
       {
         path: 'card/:cid',
+        beforeEnter: requireAtuth,
         component: () => import('@/views/boards/Card.vue'),
       }
     ]
