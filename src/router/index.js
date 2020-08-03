@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '@/views/Home.vue'
 
 Vue.use(VueRouter)
 
@@ -8,19 +7,24 @@ Vue.use(VueRouter)
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: () => import('@/views/Home.vue'),
   },
   {
     path: '/board/:id',
     name: 'Board',
-    component: () => import('@/views/Board.vue'),
+    component: () => import('@/views/boards/Board.vue'),
     children: [
       {
         path: 'card/:cid',
-        component: () => import('@/views/Card.vue'),
+        component: () => import('@/views/boards/Card.vue'),
       }
     ]
 
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/accounts/Login.vue'),
   },
   {
     path: '*',
