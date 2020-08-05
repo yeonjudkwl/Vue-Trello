@@ -1,32 +1,23 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import * as api from '@/api'
+import state from './state'
+import getters from './getters'
+import mutations from './mutations'
+import actions from './actions'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
-  state: {
-    isAddBoard: false,
-    boards: [],
-  },
-  mutations: {
-    SET_IS_ADD_BOARD(state, toggle) {
-      state.isAddBoard = toggle
-    },
-    SET_BOARDS(state, boards) {
-      state.boards = boards
-    }
-  },
-  actions: {
-    ADD_BOARD(_, {title}) {
-      return api.board.create(title)
-    },
-    FETCH_BOARDS({ commit }) {
-      return api.board.fetch().then( data => {
-        commit('SET_BOARDS', data.list)
-      })
-    }
-  },
+const store = new Vuex.Store({
+  state, 
+  getters,
+  mutations,
+  actions,
   modules: {
   }
 })
+
+// 새로고침 해도 로그인 유지
+const { token } = localStorage
+store.commit('LOGIN', token)
+
+export default store

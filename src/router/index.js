@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '@/store'
 
 Vue.use(VueRouter)
 
   const requireAtuth = (to, from, next) => {
-    const isAuth = localStorage.getItem('token')
     // 로그인 후 이동할 페이지 설정
     const loginPath = `/login?rPath=${encodeURIComponent(to.path)}`
-    isAuth ? next() : next(loginPath)
+    store.getters.isAuth ? next() : next(loginPath)
   }
   const routes = [
   {
