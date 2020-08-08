@@ -21,8 +21,8 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import List from '@/components/List.vue'
-import dragula from 'dragula'
-import 'dragula/dist/dragula.css'
+// import dragular from '../dragular'
+// import 'dragular/dist/dragular.css'
 
 export default {
   data () {
@@ -49,44 +49,44 @@ export default {
   created () {
     this.fetchData()
   },
-  updated () {
-    if (this.dragularCards) this.dragularCards.destroy()
-    this.dragularCards = dragular ([
-      //유사배열을 진짜 배열로
-      ...Array.from(this.$el.querySelectorAll('.card-list'))
-    ]).on('drop', (el, wrapper, target, siblings) => {
-      const targetCard = {
-        // (* 1)로 숫자로 바꾸기
-        id: el.dataset.cardId * 1,
-        pos: 65535
+  // updated () {
+  //   if (this.dragularCards) this.dragularCards.destroy()
+  //   this.dragularCards = dragular ([
+  //     //유사배열을 진짜 배열로
+  //     ...Array.from(this.$el.querySelectorAll('.card-list'))
+  //   ]).on('drop', (el, wrapper) => {
+  //     const targetCard = {
+  //       // (* 1)로 숫자로 바꾸기
+  //       id: el.dataset.cardId * 1,
+  //       pos: 65535
 
-      }
-      let prevCard = null
-      let nextCard = null
-      Array.from(wrapper.querySelectorAll('.card-item'))
-        .forEach((el, idx, arr) => {
-          const cardId = el.dataset.cardId * 1
-          if (cardId == targetCard.id) {
-            prevCard = idx > 0 ? {
-              id : arr[idx - 1].dataset.cardId * 1,
-              pos: arr[idx - 1].dataset.cardPos * 1,
-            } : null
-            nextCard = idx < arr.length - 1 ? {
-              id: arr[idx + 1].dataset.cardId * 1,
-              pos: arr[idx + 1].dataset.cardPos * 1,
-            } : null
-          }
-        })
-      // 첫 번째 카드일 경우
-      if (!prevCard && nextCard) targetCard.pos = nextCard.pos / 2
-      // 마지막 카드일 경우
-      else if (!nextCard && prevCard) targetCard.pos = prevCard.post * 2
-      // 중간 카드일 경우
-      else if (prevCard && nextCard) targetCard.pos = (prevCard.pos + nextCard.pos) / 2
+  //     }
+  //     let prevCard = null
+  //     let nextCard = null
+  //     Array.from(wrapper.querySelectorAll('.card-item'))
+  //       .forEach((el, idx, arr) => {
+  //         const cardId = el.dataset.cardId * 1
+  //         if (cardId == targetCard.id) {
+  //           prevCard = idx > 0 ? {
+  //             id : arr[idx - 1].dataset.cardId * 1,
+  //             pos: arr[idx - 1].dataset.cardPos * 1,
+  //           } : null
+  //           nextCard = idx < arr.length - 1 ? {
+  //             id: arr[idx + 1].dataset.cardId * 1,
+  //             pos: arr[idx + 1].dataset.cardPos * 1,
+  //           } : null
+  //         }
+  //       })
+  //     // 첫 번째 카드일 경우
+  //     if (!prevCard && nextCard) targetCard.pos = nextCard.pos / 2
+  //     // 마지막 카드일 경우
+  //     else if (!nextCard && prevCard) targetCard.pos = prevCard.post * 2
+  //     // 중간 카드일 경우
+  //     else if (prevCard && nextCard) targetCard.pos = (prevCard.pos + nextCard.pos) / 2
     
-      this.UPDATE_CARD(targetCard)
-    })
-  }
+  //     this.UPDATE_CARD(targetCard)
+  //   })
+  // }
 }
 </script>
 
