@@ -12,7 +12,7 @@
           <AddCard :list-id="data.id" @close="isAddCard=false"/>
       </div>
       <div v-else>
-          <a @click.prevent="isAddCard=true" href="" class="add-card-btn">&plus; Add a card..</a>
+          <a href @click.prevent.stop="isAddCard=true" class="add-card-btn">&plus; Add a Card...</a>
       </div>
   </div>
 </template>
