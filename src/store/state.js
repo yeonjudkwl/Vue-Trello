@@ -2,6 +2,7 @@ const state = {
   token: null,
   boards: [],
   board: {},
+  card: {},
   isAddBoard: false,
 }
 

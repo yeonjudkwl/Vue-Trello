@@ -1,13 +1,15 @@
 <template>
-  <div>
-    <div v-if="loading">loading...</div>
-    <div v-else>
-      card {{ cid }}
+  <Modal>
+    <div slot="body">
+      {{ card }}
     </div>
-  </div>
+  </Modal>
 </template>
 
 <script>
+import Modal from '@/components/Modal.vue'
+import { mapState, mapActions } from 'vuex'
+
 export default {
   data () {
     return {
@@ -15,21 +17,21 @@ export default {
       loading: false
     }
   },
-  watch: {
-    '$route': {
-      handler: 'fetchData',
-      immediate: true //created ()
-    }
+  components: {
+    Modal
+  },
+  computed: {
+    ...mapState({
+      card: 'card'
+    })
   },
   methods: {
-    fetchData() {
-      this.loading = true
-      setTimeout( () => {
-        this.cid = this.$route.params.cid
-        this.loading = false
-      }, 500)
-    }
+   ...mapActions(['FETCH_CARD'])
   },
+  created () {
+    const id = this.$route.params.cid
+    this.FETCH_CARD({id})
+  }
 }
 </script>
 
