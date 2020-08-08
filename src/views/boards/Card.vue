@@ -9,7 +9,10 @@
     <div slot="body">
       <h3>Description</h3>
       <textarea  class="form-control" cols="30" rows="3" placeholder="Add a more detailed description..."
-        readonly
+        :readonly="!toggleDescription"
+        @click="toggleDescription=true"
+        @blur="onBlurDesc"
+        ref="inputDesc"
         v-model="card.description"></textarea>
     </div>
     <div slot="footer"></div>
@@ -24,6 +27,7 @@ export default {
   data () {
     return {
       toggleTitle: false,
+      toggleDescription: false
     }
   },
   components: {
@@ -49,6 +53,13 @@ export default {
       const title = this.$refs.inputTitle.value.trim()
       if (!title) return
       this.UPDATE_CARD({id: this.card.id, title})
+        .then( () => this.fetchCard())
+    },
+    onBlurDesc () {
+      this.toggleDescription = false
+      const description = this.$refs.inputDesc.value.trim()
+      if(!description) return
+      this.UPDATE_CARD({id: this.card.id, description})
         .then( () => this.fetchCard())
     }
   },
