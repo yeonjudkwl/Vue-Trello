@@ -37,6 +37,7 @@ export default {
   },
   created() {
     this.fetchData()
+    this.SET_TEHME()
   },
   updated() {
     this.$refs.boardItem.forEach(el => {
@@ -50,7 +51,7 @@ export default {
           this.loading = false
         })
     },
-    ...mapMutations(['SET_IS_ADD_BOARD']),
+    ...mapMutations(['SET_IS_ADD_BOARD', 'SET_TEHME']),
     ...mapActions(['FETCH_BOARDS']),
   }
 }

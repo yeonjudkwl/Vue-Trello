@@ -24,6 +24,10 @@ const mutations = {
       state.token = null
       delete localStorage.token
       setAuthInHeader(null)
+    },
+    SET_THEME (state, color) {
+      state.bodyColor = color || '#fff'
+      state.navbarColor = color ? 'rgba(0, 0, 0, .15)' : '#026aa7'
     }
   }
 
