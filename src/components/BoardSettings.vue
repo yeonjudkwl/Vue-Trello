@@ -6,6 +6,11 @@
     </div>
     <ul class="menu-list">
       <li><a href="" @click.prevent="onDeleteBoard">Delete Board</a></li>
+      <li>change background</li>
+      <div class="color-picker">
+          <a href="" data-value="rgb(0, 121, 191)" @click.prevent="onChangeTheme"></a>
+          <a href="" data-value="rgb(210, 144, 52)" @click.prevent="onChangeTheme"></a>
+      </div>
     </ul>
   </div>
 </template>
@@ -19,9 +24,9 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'SET_IS_SHOW_BOARD_SETTINGS'
+      'SET_IS_SHOW_BOARD_SETTINGS', 'SET_THEME'
     ]),
-    ...mapActions(['DELETE_BOARD']),
+    ...mapActions(['DELETE_BOARD', 'UPDATE_BOARD']),
     onClose() {
       this.SET_IS_SHOW_BOARD_SETTINGS(false)
     },
@@ -30,7 +35,18 @@ export default {
         this.DELETE_BOARD({id: this.board.id})
             .then( () => this.SET_IS_SHOW_BOARD_SETTINGS(false))
             .then( () => this.$router.push('/'))
+    },
+    onChangeTheme (el) {
+        const id = this.board.id
+        const bgColor = el.target.dataset.value
+        this.UPDATE_BOARD({id, bgColor})
+            .then ( () => this.SET_THEME(bgColor))
     }
+  },
+  mounted () {
+      Array.from(this.$el.querySelectorAll('.color-picker a')).forEach( el => {
+          el.style.backgroundColor = el.dataset.value
+      })
   }
 }
 </script>
